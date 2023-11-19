@@ -71,6 +71,6 @@ app.listen(
     port: 8000,
   },
   (_, address) => {
-    console.log(`pid=${process.pid} address=${address}`)
+    console.log(`pid=[${process.pid}] address=[${address}]`)
   },
 )
