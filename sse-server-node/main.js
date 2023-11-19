@@ -14,6 +14,9 @@ const broker = {
     this.messages.push(message)
   },
   run() {
+    let messagesSent = 0
+    let start = Date.now()
+
     setInterval(async () => {
       const message = this.messages.shift()
 
@@ -26,7 +29,7 @@ const broker = {
 
         await Promise.all(promises)
       }
-    }, 1)
+    })
   },
 }
 
@@ -71,6 +74,6 @@ app.listen(
     port: 8000,
   },
   (_, address) => {
-    console.log(`Server listening at ${address}`)
+    console.log(`pid=${process.pid} address=${address}`)
   },
 )

@@ -85,6 +85,41 @@ Requests/sec:   4450.88
 Transfer/sec:    808.46KB
 ```
 
+Latência
+
+```
+send=33000 duration=1067ms rate=30.93msg/ms
+send=34000 duration=1078ms rate=31.54msg/ms
+send=35000 duration=1080ms rate=32.41msg/ms
+send=36000 duration=1096ms rate=32.85msg/ms
+send=37000 duration=1070ms rate=34.58msg/ms
+send=38000 duration=1086ms rate=34.99msg/ms
+send=39000 duration=1128ms rate=34.57msg/ms
+send=40000 duration=1076ms rate=37.17msg/ms
+send=41000 duration=1092ms rate=37.55msg/ms
+send=42000 duration=1082ms rate=38.82msg/ms
+```
+
+Recursos
+
+```
+%CPU %MEM
+51.7  0.4
+%CPU %MEM
+51.8  0.4
+%CPU %MEM
+52.0  0.4
+%CPU %MEM
+52.2  0.4
+%CPU %MEM
+52.4  0.4
+%CPU %MEM
+52.6  0.4
+%CPU %MEM
+52.7  0.4
+%CPU %MEM
+```
+
 2. 100 clientes
 
 ```
@@ -144,6 +179,8 @@ Transfer/sec:     51.44KB
 ## REPL
 
 1. 50 clientes
+
+RP/s
 
 ```
 wrk -s benchmark.lua 'http://localhost:9000/topics/demo'
