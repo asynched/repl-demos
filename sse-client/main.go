@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"sync"
+	"time"
 )
 
 var (
@@ -66,6 +67,7 @@ func DoSSERequest(id int, address string, wg *sync.WaitGroup) {
 	}
 
 	counter := 0
+	start := time.Now()
 	for scanner.Scan() {
 
 		line := scanner.Text()
@@ -76,7 +78,11 @@ func DoSSERequest(id int, address string, wg *sync.WaitGroup) {
 
 		counter++
 		if counter%1000 == 0 {
-			log.Printf("type='info' event_count=%d\n", counter)
+			if id == 0 {
+				rate := 1000 / float64(time.Since(start).Milliseconds())
+				log.Printf("type='latency' messages=%d duration=%d rate=%.2f\n", counter, time.Since(start).Milliseconds(), rate)
+				start = time.Now()
+			}
 		}
 	}
 
