@@ -26,7 +26,7 @@ class Broker:
                 for client in self.clients:
                     await client.put(f"data: {message}\n\n")
 
-            await asyncio.sleep(0.01)
+            await asyncio.sleep(0.001)
 
 
 broker = Broker()

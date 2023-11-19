@@ -14,13 +14,19 @@ const broker = {
     this.messages.push(message)
   },
   run() {
-    setInterval(() => {
+    setInterval(async () => {
       const message = this.messages.shift()
 
       if (message) {
-        this.subscribers.forEach((subscriber) => subscriber(message))
+        const promises = []
+
+        for (const subscriber of this.subscribers) {
+          promises.push(subscriber(message))
+        }
+
+        await Promise.all(promises)
       }
-    }, 10)
+    }, 1)
   },
 }
 
@@ -36,7 +42,15 @@ app.get('/chat', (req, res) => {
   })
 
   const cleanup = broker.subscribe((message) => {
-    res.raw.write(`data: ${JSON.stringify(message)}\n\n`)
+    return new Promise((resolve, reject) => {
+      res.raw.write(`data: ${JSON.stringify(message)}\n\n`, (err) => {
+        if (err) {
+          return reject(err)
+        }
+
+        return resolve()
+      })
+    })
   })
 
   res.raw.write('event: connected\n\n')
