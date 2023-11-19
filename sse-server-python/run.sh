@@ -1,0 +1,1 @@
+uvicorn sse-server-python.main:app
