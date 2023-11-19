@@ -14,9 +14,6 @@ const broker = {
     this.messages.push(message)
   },
   run() {
-    let messagesSent = 0
-    let start = Date.now()
-
     setInterval(async () => {
       const message = this.messages.shift()
 

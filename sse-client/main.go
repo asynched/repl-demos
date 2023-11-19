@@ -15,7 +15,7 @@ var (
 )
 
 func init() {
-	log.SetFlags(log.Ldate | log.Ltime | log.Lmsgprefix)
+	log.SetFlags(log.Lmsgprefix)
 	log.SetPrefix("[bench] ")
 }
 
@@ -79,7 +79,9 @@ func DoSSERequest(id int, address string, wg *sync.WaitGroup) {
 		counter++
 		if counter%1000 == 0 {
 			if id == 0 {
-				rate := 1000 / float64(time.Since(start).Milliseconds())
+				// Rate of messages received per second
+				rate := 1000 / time.Since(start).Seconds()
+
 				log.Printf("type='latency' messages=%d duration=%d rate=%.2f\n", counter, time.Since(start).Milliseconds(), rate)
 				start = time.Now()
 			}
