@@ -13,7 +13,7 @@ app.get('/chat', (request, reply) => {
 app.post('/chat', {
   handler: (request, reply) => {
     const message = db.createMessage(request.body.message)
-    queueMicrotask(() => chat.notify(message))
+    chat.notify(message)
     reply.send(message)
   },
   schema: {
